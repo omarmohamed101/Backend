@@ -1,8 +1,12 @@
 const express = require('express');
+const colors = require('colors')
 const path = require('path')
 const logger = require('./middleware/logger')
+const dotenv = require('dotenv').config()
+const connectDB = require('./config/db')
 
-
+connectDB()
+  
 
 const app = express();
 
