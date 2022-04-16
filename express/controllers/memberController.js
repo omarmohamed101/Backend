@@ -1,7 +1,8 @@
 const uuid = require('uuid')
 const members = require('../Members')
+const asyncHandler = require('express-async-handler')
 
-const readMember = (req, res) => {
+const readMember = asyncHandler(async (req, res) => {
     const found = members.some(member => member.id === parseInt(req.params.id))
 
 
@@ -11,9 +12,9 @@ const readMember = (req, res) => {
         res.json(members.filter(member => member.id === parseInt(req.params.id)))
     else
         res.status(404).json({msg: `No user with the id ${req.params.id}`})
-}
+})
 
-const createMember = (req, res) => {
+const createMember = asyncHandler(async (req, res) => {
 
     //res.send(req.body)
     const newMember = {
@@ -32,9 +33,9 @@ const createMember = (req, res) => {
     // return the entire array of json including the new one
     res.json(members)
 
-}
+})
 
-const updateMember = (req, res) => {
+const updateMember = asyncHandler(async(req, res) => {
     const found = members.some(member => member.id === parseInt(req.params.id))
 
     if (found) {
@@ -52,9 +53,9 @@ const updateMember = (req, res) => {
         
     else
         res.status(404).json({msg: `No user with the id ${req.params.id}`})
-}
+})
 
-const deleteMember = (req, res) => {
+const deleteMember = asyncHandler(async (req, res) => {
     const found = members.some(member => member.id === parseInt(req.params.id))
 
 
@@ -62,7 +63,7 @@ const deleteMember = (req, res) => {
         res.json({msg: "member deleted", members: members.filter(member => member.id !== parseInt(req.params.id))})
     else
         res.status(404).json({msg: `No user with the id ${req.params.id}`})
-}
+})
 
 module.exports = {
     readMember, 
